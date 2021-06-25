@@ -31,8 +31,8 @@ namespace VeterDates {
         }
         private void limpiar( ) {
             this.comboBox1.SelectedIndex = 0;
-            this.bunifuTextBox2.Clear();
-            this.bunifuTextBox3.Clear();
+            this.textBox1.Clear();
+            this.textBox2.Clear();
             cargarDatos();
         }
         void cargarDatos( ) {
@@ -54,8 +54,8 @@ namespace VeterDates {
         private void bunifuImageButton1_Click( object sender, EventArgs e ) {
             string[] datos = new string[] {
                 $"('{this.comboBox1.Text}')",
-                $"('{this.bunifuTextBox2.Text}')",
-                $"('{this.bunifuTextBox3.Text}')"
+                $"('{this.textBox1.Text}')",
+                $"('{this.textBox2.Text}')"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -69,18 +69,19 @@ namespace VeterDates {
                 limpiar();
         }
         private bool validos( ) => string.IsNullOrEmpty(this.comboBox1.Text) || 
-            string.IsNullOrEmpty(this.bunifuTextBox2.Text) || 
-            string.IsNullOrEmpty(this.bunifuTextBox3.Text);
+            string.IsNullOrEmpty(this.textBox1.Text) || 
+            string.IsNullOrEmpty(this.textBox2.Text);
 
         private void bunifuImageButton2_Click( object sender, EventArgs e ) {
             this.@base.Baja("MEDICOS", $"idMedico='{this.comboBox1.Text}'");
             limpiar();
+            MessageBox.Show("Registro Eliminado Correctamente");
         }
 
         private void bunifuImageButton3_Click( object sender, EventArgs e ) {
             List<List<string>> consulta = this.@base.Buscar("MEDICOS", $"idMedico='{this.comboBox1.Text}'");
-            this.bunifuTextBox2.Text = consulta[ 0 ][ 1 ];
-            this.bunifuTextBox3.Text = consulta[ 0 ][ 2 ];
+            this.textBox1.Text = consulta[ 0 ][ 1 ];
+            this.textBox2.Text = consulta[ 0 ][ 2 ];
 
             if (!string.IsNullOrEmpty(this.comboBox1.Text)) {
                 this.comboBox1.Enabled = false;
@@ -93,8 +94,8 @@ namespace VeterDates {
 
         private void bunifuImageButton4_Click( object sender, EventArgs e ) {
             string[] datos = new string[] {
-                $"nombreMedico='{this.bunifuTextBox2.Text}'",
-                $"apellidosMedico='{this.bunifuTextBox3.Text}'"
+                $"nombreMedico='{this.textBox1.Text}'",
+                $"apellidosMedico='{this.textBox2.Text}'"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -131,8 +132,7 @@ namespace VeterDates {
                 }
             }
         }
-
-        private void bunifuTextBox2_Validating( object sender, CancelEventArgs e ) {
+        private void textBox1_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
                 if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
@@ -143,7 +143,7 @@ namespace VeterDates {
             }
         }
 
-        private void bunifuTextBox3_Validating( object sender, CancelEventArgs e ) {
+        private void textBox2_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
                 if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {

@@ -31,10 +31,10 @@ namespace VeterDates {
         }
         private void limpiar( ) {
             this.comboBox1.Items.Clear();
-            this.bunifuTextBox1.Clear();
-            this.bunifuTextBox2.Clear();
-            this.bunifuTextBox3.Clear();
-            this.bunifuTextBox4.Clear();
+            this.textBox1.Clear();
+            this.textBox2.Clear();
+            this.textBox3.Clear();
+            this.textBox4.Clear();
             cargarDatos();
         }
         void cargarDatos( ) {
@@ -56,10 +56,10 @@ namespace VeterDates {
         private void bunifuImageButton1_Click( object sender, EventArgs e ) {
             string[] datos = new string[] {
                 $"('{this.comboBox1.Text}')",
-                $"('{this.bunifuTextBox1.Text}')",
-                $"('{this.bunifuTextBox2.Text}')",
-                $"('{this.bunifuTextBox3.Text}')",
-                $"('{this.bunifuTextBox4.Text}')"
+                $"('{this.textBox1.Text}')",
+                $"('{this.textBox2.Text}')",
+                $"('{this.textBox3.Text}')",
+                $"('{this.textBox4.Text}')"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -76,14 +76,15 @@ namespace VeterDates {
         private void bunifuImageButton2_Click( object sender, EventArgs e ) {
             this.@base.Baja("DUENIOS", $"idDuenios='{this.comboBox1.Text}'");
             limpiar();
+            MessageBox.Show("Registro Eliminado Correctamente");
         }
 
         private void bunifuImageButton3_Click( object sender, EventArgs e ) {
             List<List<string>> consulta = this.@base.Buscar("DUENIOS", $"idDuenios='{this.comboBox1.Text}'");
-            this.bunifuTextBox1.Text = consulta[ 0 ][ 1 ];
-            this.bunifuTextBox2.Text = consulta[ 0 ][ 2 ];
-            this.bunifuTextBox3.Text = consulta[ 0 ][ 3 ];
-            this.bunifuTextBox4.Text = consulta[ 0 ][ 4 ];
+            this.textBox1.Text = consulta[ 0 ][ 1 ];
+            this.textBox2.Text = consulta[ 0 ][ 2 ];
+            this.textBox3.Text = consulta[ 0 ][ 3 ];
+            this.textBox4.Text = consulta[ 0 ][ 4 ];
 
             if (!string.IsNullOrEmpty(this.comboBox1.Text)) {
                 this.comboBox1.Enabled = false;
@@ -96,10 +97,10 @@ namespace VeterDates {
 
         private void bunifuImageButton4_Click( object sender, EventArgs e ) {
             string[] datos = new string[] {
-                $"nombreDuenio='{this.bunifuTextBox1.Text}'",
-                $"apellidosDuenio='{this.bunifuTextBox2.Text}'",
-                $"telefonoDuenio='{this.bunifuTextBox3.Text}'",
-                $"direccionDuenio='{this.bunifuTextBox4.Text}'"
+                $"nombreDuenio='{this.textBox1.Text}'",
+                $"apellidosDuenio='{this.textBox2.Text}'",
+                $"telefonoDuenio='{this.textBox3.Text}'",
+                $"direccionDuenio='{this.textBox4.Text}'"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -111,10 +112,10 @@ namespace VeterDates {
                 MessageBox.Show("Ocurrió un error, revisa tus datos");
         }
         private bool validos( ) => string.IsNullOrEmpty(this.comboBox1.Text) ||
-            string.IsNullOrEmpty(this.bunifuTextBox1.Text) ||
-            string.IsNullOrEmpty(this.bunifuTextBox2.Text) ||
-            string.IsNullOrEmpty(this.bunifuTextBox3.Text) ||
-            string.IsNullOrEmpty(this.bunifuTextBox4.Text);
+            string.IsNullOrEmpty(this.textBox1.Text) ||
+            string.IsNullOrEmpty(this.textBox2.Text) ||
+            string.IsNullOrEmpty(this.textBox3.Text) ||
+            string.IsNullOrEmpty(this.textBox4.Text);
 
         private void comboBox1_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
@@ -136,7 +137,7 @@ namespace VeterDates {
                 }
             }
         }
-        private void bunifuTextBox1_Validating( object sender, CancelEventArgs e ) {
+        private void textBox1_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
                 if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
@@ -147,7 +148,7 @@ namespace VeterDates {
             }
         }
 
-        private void bunifuTextBox2_Validating( object sender, CancelEventArgs e ) {
+        private void textBox2_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
                 if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
@@ -158,7 +159,7 @@ namespace VeterDates {
             }
         }
 
-        private void bunifuTextBox3_Validating( object sender, CancelEventArgs e ) {
+        private void textBox3_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
                 if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
@@ -166,15 +167,20 @@ namespace VeterDates {
                     advertencia.Show("No puedes usar los signos '=' o ';'", sender as IWin32Window, 2000);
                     e.Cancel = true;
                 }
-                else if (!int.TryParse(( sender as Control ).Text, out _)) {
+                else if (!long.TryParse(( sender as Control ).Text, out _)) {
                     advertencia.ToolTipTitle = "ID inválido";
                     advertencia.Show("El numero de telefono solo debe contener números", sender as IWin32Window, 2000);
                     e.Cancel = true;
                 }
+                else if ((sender as Control).Text.Length != 10) {
+                    advertencia.ToolTipTitle = "Número de teléfono inválido";
+                    advertencia.Show("El número de teléfono debe contener 10 dígitos números", sender as IWin32Window, 2000);
+                    e.Cancel = true;
+                }
             }
         }
 
-        private void bunifuTextBox4_Validating( object sender, CancelEventArgs e ) {
+        private void textBox4_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
                 if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {

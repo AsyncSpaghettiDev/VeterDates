@@ -33,7 +33,7 @@ namespace VeterDates {
         private void limpiar( ) {
             this.bunifuDataGridView1.Rows.Clear();
             this.comboBox1.Items.Clear();
-            this.bunifuTextBox1.Clear();
+            this.textBox1.Clear();
             cargarDatos();
         }
         void cargarDatos( ) {
@@ -51,7 +51,7 @@ namespace VeterDates {
         private void bunifuImageButton1_Click( object sender, EventArgs e ) {
             string[] datos = new string[] {
                 $"('{this.comboBox1.Text}')",
-                $"('{this.bunifuTextBox1.Text}')"
+                $"('{this.textBox1.Text}')"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -70,11 +70,12 @@ namespace VeterDates {
         private void bunifuImageButton2_Click( object sender, EventArgs e ) {
             this.@base.Baja("CONSULTAS", $"idConsulta='{this.comboBox1.Text}'");
             limpiar();
+            MessageBox.Show("Registro Eliminado Correctamente");
         }
 
         private void bunifuImageButton3_Click( object sender, EventArgs e ) {
             List<List<string>> consulta = this.@base.Buscar("CONSULTAS", $"idConsulta='{this.comboBox1.Text}'");
-            this.bunifuTextBox1.Text = consulta[ 0 ][ 1 ];
+            this.textBox1.Text = consulta[ 0 ][ 1 ];
 
             if (!string.IsNullOrEmpty(this.comboBox1.Text)) {
                 this.comboBox1.Enabled = false;
@@ -87,7 +88,7 @@ namespace VeterDates {
 
         private void bunifuImageButton4_Click( object sender, EventArgs e ) {
             string[] datos = new string[] {
-                $"descripcionConsulta='{this.bunifuTextBox1.Text}'"
+                $"descripcionConsulta='{this.textBox1.Text}'"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -124,8 +125,11 @@ namespace VeterDates {
                 }
             }
         }
+        private bool validos( ) => 
+            string.IsNullOrEmpty(this.comboBox1.Text) ||
+            string.IsNullOrEmpty(this.textBox1.Text);
 
-        private void bunifuTextBox1_Validating( object sender, CancelEventArgs e ) {
+        private void textBox1_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
                 if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
@@ -135,8 +139,5 @@ namespace VeterDates {
                 }
             }
         }
-        private bool validos( ) => 
-            string.IsNullOrEmpty(this.comboBox1.Text) ||
-            string.IsNullOrEmpty(this.bunifuTextBox1.Text);
     }
 }

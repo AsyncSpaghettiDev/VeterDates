@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using ConexionMYSQL;
@@ -27,8 +28,8 @@ namespace VeterDates {
         private void limpiar( ) {
             this.comboBox1.SelectedIndex = 0;
             this.comboBox2.SelectedIndex = 0;
-            this.bunifuTextBox1.Clear();
-            this.bunifuTextBox2.Clear();
+            this.textBox1.Clear();
+            this.textBox2.Clear();
             cargarDatos();
         }
         void cargarDatos( ) {
@@ -55,8 +56,8 @@ namespace VeterDates {
             string[] datos = new string[] {
                 $"('{this.comboBox1.Text}')",
                 $"('{this.comboBox2.Text}')",
-                $"('{this.bunifuTextBox1.Text}')",
-                $"('{this.bunifuTextBox2.Text}')"
+                $"('{this.textBox1.Text}')",
+                $"('{this.textBox2.Text}')"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -73,13 +74,14 @@ namespace VeterDates {
         private void bunifuImageButton2_Click( object sender, EventArgs e ) {
             this.@base.Baja("MASCOTAS", $"idMascota='{this.comboBox1.Text}'");
             limpiar();
+            MessageBox.Show("Registro Eliminado Correctamente");
         }
 
         private void bunifuImageButton3_Click( object sender, EventArgs e ) {
             List<List<string>> consulta = this.@base.Buscar("MASCOTAS", $"idMascota='{this.comboBox1.Text}'");
             this.comboBox2.Text = consulta[ 0 ][ 1 ];
-            this.bunifuTextBox1.Text = consulta[ 0 ][ 2 ];
-            this.bunifuTextBox2.Text = consulta[ 0 ][ 3 ];
+            this.textBox1.Text = consulta[ 0 ][ 2 ];
+            this.textBox2.Text = consulta[ 0 ][ 3 ];
 
             if (!string.IsNullOrEmpty(this.comboBox1.Text)) {
                 this.comboBox1.Enabled = false;
@@ -94,8 +96,8 @@ namespace VeterDates {
         private void bunifuImageButton4_Click( object sender, EventArgs e ) {
             string[] datos = new string[] {
                 $"idDuenio='{this.comboBox2.Text}'",
-                $"tipoMascota='{this.bunifuTextBox1.Text}'",
-                $"nombreMascota='{this.bunifuTextBox2.Text}'"
+                $"tipoMascota='{this.textBox1.Text}'",
+                $"nombreMascota='{this.textBox2.Text}'"
             };
             if (validos())
                 MessageBox.Show("Los campos no deben estar vacios");
@@ -115,13 +117,13 @@ namespace VeterDates {
         private bool validos( ) => 
             string.IsNullOrEmpty(this.comboBox1.Text) || 
             string.IsNullOrEmpty(this.comboBox2.Text) || 
-            string.IsNullOrEmpty(this.bunifuTextBox1.Text) || 
-            string.IsNullOrEmpty(this.bunifuTextBox2.Text);
+            string.IsNullOrEmpty(this.textBox1.Text) || 
+            string.IsNullOrEmpty(this.textBox2.Text);
 
         private void comboBox1_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
-                if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
+                if (( sender as Control ).Text.IndexOf(';') != -1 || ( sender as Control ).Text.IndexOf('=') != -1) {
                     advertencia.ToolTipTitle = "Hey, te cacé";
                     advertencia.Show("No puedes usar los signos '=' o ';'", sender as IWin32Window, 2000);
                     e.Cancel = true;
@@ -129,38 +131,33 @@ namespace VeterDates {
                 else if (( sender as Control ).Text.Length > 8) {
                     advertencia.ToolTipTitle = "ID muy largo";
                     advertencia.Show("El ID no debe exceder de 8 caracteres", sender as IWin32Window, 2000);
+                    e.Cancel = true;
+                }
+                else if (!int.TryParse(( sender as Control ).Text, out _)) {
+                    advertencia.ToolTipTitle = "ID inválido";
+                    advertencia.Show("El ID solo debe contener números", sender as IWin32Window, 2000);
                     e.Cancel = true;
                 }
             }
         }
 
-        private void bunifuTextBox1_Validating( object sender, CancelEventArgs e ) {
+        private void textBox1_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
-                if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
+                if (( sender as Control ).Text.IndexOf(';') != -1 || ( sender as Control ).Text.IndexOf('=') != -1) {
                     advertencia.ToolTipTitle = "Hey, te cacé";
                     advertencia.Show("No puedes usar los signos '=' o ';'", sender as IWin32Window, 2000);
-                    e.Cancel = true;
-                }
-                else if (( sender as Control ).Text.Length > 8) {
-                    advertencia.ToolTipTitle = "ID muy largo";
-                    advertencia.Show("El ID no debe exceder de 8 caracteres", sender as IWin32Window, 2000);
                     e.Cancel = true;
                 }
             }
         }
 
-        private void bunifuTextBox2_Validating( object sender, CancelEventArgs e ) {
+        private void textBox2_Validating( object sender, CancelEventArgs e ) {
             ToolTip advertencia = new ToolTip();
             if (!string.IsNullOrWhiteSpace(( sender as Control ).Text)) {
-                if (( sender as Control ).Text.Contains(";") || ( sender as Control ).Text.Contains("=")) {
+                if (( sender as Control ).Text.IndexOf(';') != -1 || ( sender as Control ).Text.IndexOf('=') != -1) {
                     advertencia.ToolTipTitle = "Hey, te cacé";
                     advertencia.Show("No puedes usar los signos '=' o ';'", sender as IWin32Window, 2000);
-                    e.Cancel = true;
-                }
-                else if (( sender as Control ).Text.Length > 8) {
-                    advertencia.ToolTipTitle = "ID muy largo";
-                    advertencia.Show("El ID no debe exceder de 8 caracteres", sender as IWin32Window, 2000);
                     e.Cancel = true;
                 }
             }
