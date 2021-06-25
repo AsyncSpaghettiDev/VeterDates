@@ -71,6 +71,8 @@ namespace VeterDates {
             else if (this.@base.Alta("DETALLESCONSULTA_debil", datos)) {
                 MessageBox.Show("Registro completado");
                 limpiar();
+                this.menuPrincipal.Show();
+                Dispose();
             }
             else if (MessageBox.Show("¿Desea sobreescribir los datos del ID?", "ID repetido", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 bunifuImageButton4_Click(null, null);
