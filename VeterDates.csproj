@@ -124,8 +124,14 @@
     <EmbeddedResource Include="Consultas.resx">
       <DependentUpon>Consultas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Consultorios.resx">
+      <DependentUpon>Consultorios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DetallesConsulta.resx">
       <DependentUpon>DetallesConsulta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Duenios.resx">
+      <DependentUpon>Duenios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IniciaSesion.resx">
       <DependentUpon>IniciaSesion.cs</DependentUpon>
@@ -195,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bg2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VetLogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -135,6 +135,8 @@ namespace VeterDates {
                 }
             }
         }
-        private bool validos( ) => string.IsNullOrEmpty(this.comboBox1.Text) || string.IsNullOrEmpty(this.bunifuTextBox1.Text);
+        private bool validos( ) => 
+            string.IsNullOrEmpty(this.comboBox1.Text) ||
+            string.IsNullOrEmpty(this.bunifuTextBox1.Text);
     }
 }

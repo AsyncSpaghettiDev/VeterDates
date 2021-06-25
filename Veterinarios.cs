@@ -68,7 +68,9 @@ namespace VeterDates {
             else
                 limpiar();
         }
-        private bool validos( ) => string.IsNullOrEmpty(this.comboBox1.Text) && string.IsNullOrEmpty(this.bunifuTextBox2.Text) && string.IsNullOrEmpty(this.bunifuTextBox3.Text);
+        private bool validos( ) => string.IsNullOrEmpty(this.comboBox1.Text) || 
+            string.IsNullOrEmpty(this.bunifuTextBox2.Text) || 
+            string.IsNullOrEmpty(this.bunifuTextBox3.Text);
 
         private void bunifuImageButton2_Click( object sender, EventArgs e ) {
             this.@base.Baja("MEDICOS", $"idMedico='{this.comboBox1.Text}'");

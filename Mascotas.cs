@@ -113,9 +113,9 @@ namespace VeterDates {
             this.bunifuImageButton4.Hide();
         }
         private bool validos( ) => 
-            string.IsNullOrEmpty(this.comboBox1.Text) && 
-            string.IsNullOrEmpty(this.comboBox2.Text) && 
-            string.IsNullOrEmpty(this.bunifuTextBox1.Text) && 
+            string.IsNullOrEmpty(this.comboBox1.Text) || 
+            string.IsNullOrEmpty(this.comboBox2.Text) || 
+            string.IsNullOrEmpty(this.bunifuTextBox1.Text) || 
             string.IsNullOrEmpty(this.bunifuTextBox2.Text);
 
         private void comboBox1_Validating( object sender, CancelEventArgs e ) {

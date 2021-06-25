@@ -55,7 +55,7 @@ namespace VeterDates {
                     break;
 
                 case "DUEÑOS":
-                    new Duenios().Show();
+                    new Duenios(this).Show();
                     Hide();
                     break;
 
@@ -65,7 +65,7 @@ namespace VeterDates {
                     break;
 
                 case "CONSULTORIOS":
-                    new Consultorios().Show();
+                    new Consultorios(this).Show();
                     Hide();
                     break;
 

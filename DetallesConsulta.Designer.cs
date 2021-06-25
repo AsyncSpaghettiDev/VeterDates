@@ -289,6 +289,10 @@ namespace VeterDates {
             // bunifuDataGridView1
             // 
             this.bunifuDataGridView1.AllowCustomTheming = false;
+            this.bunifuDataGridView1.AllowUserToAddRows = false;
+            this.bunifuDataGridView1.AllowUserToDeleteRows = false;
+            this.bunifuDataGridView1.AllowUserToResizeColumns = false;
+            this.bunifuDataGridView1.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
             this.bunifuDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -337,8 +341,11 @@ namespace VeterDates {
             this.bunifuDataGridView1.HeaderBgColor = System.Drawing.Color.Empty;
             this.bunifuDataGridView1.HeaderForeColor = System.Drawing.Color.White;
             this.bunifuDataGridView1.Location = new System.Drawing.Point(26, 300);
+            this.bunifuDataGridView1.MultiSelect = false;
             this.bunifuDataGridView1.Name = "bunifuDataGridView1";
+            this.bunifuDataGridView1.ReadOnly = true;
             this.bunifuDataGridView1.RowHeadersVisible = false;
+            this.bunifuDataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.bunifuDataGridView1.RowTemplate.Height = 40;
             this.bunifuDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.bunifuDataGridView1.Size = new System.Drawing.Size(466, 184);

@@ -47,3 +47,5 @@ C:\Users\Jonathan\Desktop\VeterDates\bin\Debug\Bunifu.UI.WinForms.BunifuDatePick
 C:\Users\Jonathan\Desktop\VeterDates\bin\Debug\Bunifu.UI.WinForms.BunifuDatePicker.xml
 C:\Users\Jonathan\Desktop\VeterDates\obj\Debug\VeterDates.DetallesConsulta.resources
 C:\Users\Jonathan\Desktop\VeterDates\bin\Debug\Bunifu.Licensing.dll
+C:\Users\Jonathan\Desktop\VeterDates\obj\Debug\VeterDates.Duenios.resources
+C:\Users\Jonathan\Desktop\VeterDates\obj\Debug\VeterDates.Consultorios.resources
