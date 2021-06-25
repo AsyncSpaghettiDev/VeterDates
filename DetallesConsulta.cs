@@ -12,11 +12,13 @@ namespace VeterDates {
             this.menuPrincipal = menu;
             crearGrid();
             cargarDatos();
+            this.comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             this.bunifuImageButton1.Hide();
             this.bunifuImageButton2.Hide();
             this.bunifuImageButton4.Hide();
         }
         public DetallesConsulta( Form menu , string idCita): this(menu) {
+            this.comboBox1.DropDownStyle = ComboBoxStyle.DropDown;
             this.comboBox1.Text = idCita;
             this.comboBox1.Enabled = false;
             this.bunifuImageButton1.Show();
@@ -44,7 +46,7 @@ namespace VeterDates {
                 this.comboBox1.Items.Add(dt[0]);
                 this.comboBox2.Items.Add(dt[ 1 ]);
                 this.comboBox3.Items.Add(dt[ 2 ]);
-                this.bunifuDataGridView1.Rows.Add(dt[ 0 ], dt[ 1 ], dt[ 2 ], dt[ 3 ], dt[ 4 ]);
+                this.bunifuDataGridView1.Rows.Add(dt[ 0 ], dt[ 1 ], dt[ 2 ], dt[ 3 ].Remove(10), dt[ 4 ]);
             }
         }
         void crearGrid( ) {
@@ -61,7 +63,7 @@ namespace VeterDates {
                 $"('{this.comboBox1.Text}')",
                 $"('{this.comboBox2.Text}')",
                 $"('{this.comboBox3.Text}')",
-                $"('{this.bunifuDatePicker1.Text}')",
+                $"('{this.bunifuDatePicker1.Value:yyyy-MM-dd}')",
                 $"('{this.dateTimePicker1.Text}')"
             };
             if (validos())
@@ -96,7 +98,7 @@ namespace VeterDates {
             string[] datos = new string[] {
                 $"idConsultorio='{this.comboBox2.Text}'",
                 $"idMascota='{this.comboBox3.Text}'",
-                $"diaConsulta='{this.bunifuDatePicker1.Text}'",
+                $"diaConsulta='{this.bunifuDatePicker1.Value:yyyy-MM-dd}'",
                 $"horaConsulta='{this.dateTimePicker1.Text}'"
             };
             if (validos())

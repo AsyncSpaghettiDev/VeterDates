@@ -57,7 +57,9 @@ namespace VeterDates {
                 MessageBox.Show("Los campos no deben estar vacios");
             else if (this.@base.Alta("CONSULTAS", datos)) {
                 MessageBox.Show("Registro completado");
+                new DetallesConsulta(menuPrincipal, this.comboBox1.Text).Show();
                 limpiar();
+                Dispose();
             }
             else if (MessageBox.Show("¿Desea sobreescribir los datos del ID?", "ID repetido", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 bunifuImageButton4_Click(null, null);
@@ -133,6 +135,6 @@ namespace VeterDates {
                 }
             }
         }
-        private bool validos( ) => string.IsNullOrEmpty(this.comboBox1.Text) && string.IsNullOrEmpty(this.bunifuTextBox1.Text);
+        private bool validos( ) => string.IsNullOrEmpty(this.comboBox1.Text) || string.IsNullOrEmpty(this.bunifuTextBox1.Text);
     }
 }
